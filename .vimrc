@@ -34,6 +34,8 @@ call plug#end()
 " python3 install.py
 
 set laststatus=2
+" For lightline to appear correctly inside tmux add to .bashrc
+" export TERM='screen-256color' 
 set t_Co=256
 colorscheme delek
 let g:lightline = {
