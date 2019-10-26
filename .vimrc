@@ -32,6 +32,7 @@ call plug#end()
 " Compiling YCM without semantic support for C-family languages
 " cd ~/.vim/plugged/YouCompleteMe
 " python3 install.py
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 set laststatus=2
 " For lightline to appear correctly inside tmux add to .bashrc
