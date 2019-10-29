@@ -11,6 +11,8 @@ set textwidth=80
 set hidden
 set splitbelow
 set splitright
+set encoding=utf-8
+set colorcolumn=80
 let g:netrw_liststyle=3
 
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -43,3 +45,4 @@ let g:lightline = {
     \ 'colorscheme': 'seoul256',
     \ }
 
+highlight ColorColumn ctermbg=13
