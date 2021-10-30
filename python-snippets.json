@@ -1,0 +1,65 @@
+{
+	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Python script with docopt arg parsing.": {
+		"prefix": "py.script",
+		"body": [
+		  "#!/usr/bin/python",
+		  "# -*- coding: utf-8 -*-",
+		  "",
+		  "\"\"\" description",
+		  "",
+		  "    Usage:",
+		  "        script_name.py <positional_argument> [options]",
+		  "",
+		  "    Options:",
+		  "        --value-arg=<va>            Argument with value [default: 1.0]",
+		  "        --boolean-arg               True if supplied False otherwise",
+		  "\"\"\"",
+		  "__author__ = \"Christopher Serrano\"",
+		  "",
+		  "from docopt import docopt",
+		  "",
+		  "",
+		  "def parse_args(args):",
+		  "    types = {\"<positional_argument>\": int,",
+		  "             \"--value-arg\": float,",
+		  "             \"--boolean-arg\": bool}",
+		  "",
+		  "    for arg, typ in types.items():",
+		  "        args[arg] = typ(args[arg])",
+		  "",
+		  "    return args",
+		  "",
+		  "def main(args):",
+		  "    print(args)",
+		  "",
+		  "",
+		  "if __name__ == \"__main__\":",
+		  "    args = docopt(__doc__)",
+		  "    args = parse_args(args)",
+		  "    main(args)"
+		],
+		"description": "Python script with docopt arg parsing."
+	},
+	  "New Class Boilerplate": {
+		"prefix": "py.class",
+		"body": [
+		  "class ClassName:",
+		  "    def __init__(self):",
+		  "        ..."
+		],
+		"description": "New Class Boilerplate"
+	  }
+}
