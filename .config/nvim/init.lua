@@ -113,7 +113,7 @@ end
 -- Automatically source and re-compile packer whenever you save this init.lua
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
-  command = 'source <afile> | PackerCompile',
+  command = 'source <afile> | silent! LspStop | silent! LspStart | PackerCompile',
   group = packer_group,
   pattern = vim.fn.expand '$MYVIMRC',
 })
@@ -167,6 +167,8 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { silent = true })
 vim.keymap.set('n', '<leader>r', ':w<Enter>:!%:p<Enter>') -- run file
 -- vim.keymap.set('n', '<leader>b', '<cmd>call Black()<CR>')
+vim.keymap.set('n', '<leader>.', ':e ~/.config/nvim/init.lua<CR>')
+vim.keymap.set({ 'n', 'v' }, '<leader>l', ':call Selection()<CR>') -- llm.nvim
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -256,7 +258,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim'},
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -395,7 +397,7 @@ local servers = {
         enabled = true,
         executable = 'black',  -- PylspInstall python-lsp-black
         -- args = { '--quiet', '--line-length', '88' },
-        args = { '--line-length', '88' },
+        args = { '--quiet', '--line-length', '88' },
       },
     },
   },
@@ -443,7 +445,6 @@ require('fidget').setup()
 -- -- nvim-ide setup
 -- -- default components
 -- local bufferlist      = require('ide.components.bufferlist')
--- local explorer        = require('ide.components.explorer')
 -- local outline         = require('ide.components.outline')
 -- local callhierarchy   = require('ide.components.callhierarchy')
 -- local timeline        = require('ide.components.timeline')
