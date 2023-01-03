@@ -124,6 +124,11 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.colorcolumn = '88'
 
+-- Code folding
+vim.opt.foldenable = false
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -168,7 +173,9 @@ vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { silent = true })
 vim.keymap.set('n', '<leader>r', ':w<Enter>:!%:p<Enter>') -- run file
 -- vim.keymap.set('n', '<leader>b', '<cmd>call Black()<CR>')
 vim.keymap.set('n', '<leader>.', ':e ~/.config/nvim/init.lua<CR>')
+vim.keymap.set('n', '<leader>m', ':Telescope keymaps<CR>')
 vim.keymap.set({ 'n', 'v' }, '<leader>l', ':call Selection()<CR>') -- llm.nvim
+vim.keymap.set({ 'n', 'v' }, '<leader>w', ':SelectionWindow<CR>') -- llm.nvim
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
