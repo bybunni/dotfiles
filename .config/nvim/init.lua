@@ -92,12 +92,12 @@ require('packer').startup(function(use)
 
   -- Git related plugins
   use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
+  -- use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
   use 'github/copilot.vim' -- Copilot
   -- use 'averms/black-nvim' -- Black
   -- use 'ldelossa/nvim-ide' -- IDE
-  use 'bybunni/prompt.nvim' -- prompt.nvim local development directory
+  use '/Users/bunni/Documents/github/prompt.nvim' -- prompt.nvim local development directory
 
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
