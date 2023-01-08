@@ -31,22 +31,47 @@ require('packer').startup(function(use)
       'folke/neodev.nvim',
     },
   }
+  -- Unless you are still migrating, remove the deprecated commands from v1.x
+  vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
-  use { -- Explorer
-    'nvim-tree/nvim-tree.lua',
+  use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
     requires = {
-      'nvim-tree/nvim-web-devicons', -- optional, for file icons
-    },
-    tag = 'nightly' -- optional, updated every week. (see issue #1193)
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
   }
-  -- nvim-tree setup
-  -- disable netrw at the very start of your init.lua (strongly advised)
-  vim.g.loaded_netrw = 1
-  vim.g.loaded_netrwPlugin = 1
-  -- set termguicolors to enable highlight groups
-  vim.opt.termguicolors = true
-  -- empty setup using defaults
-  require("nvim-tree").setup()
+  require("neo-tree").setup({
+    buffers = {
+      follow_current_file = true, -- This will find and focus the file in the active buffer every
+      group_empty_dirs = true, -- when true, empty folders will be grouped together
+      show_unloaded = true,
+      window = {
+        mappings = {
+          ["bd"] = "buffer_delete",
+          ["<bs>"] = "navigate_up",
+          ["."] = "set_root",
+        }
+      },
+    },
+  })
+  -- use { -- Explorer
+  --   'nvim-tree/nvim-tree.lua',
+  --   requires = {
+  --     'nvim-tree/nvim-web-devicons', -- optional, for file icons
+  --   },
+  --   tag = 'nightly' -- optional, updated every week. (see issue #1193)
+  -- }
+  -- -- nvim-tree setup
+  -- -- disable netrw at the very start of your init.lua (strongly advised)
+  -- vim.g.loaded_netrw = 1
+  -- vim.g.loaded_netrwPlugin = 1
+  -- -- set termguicolors to enable highlight groups
+  -- vim.opt.termguicolors = true
+  -- -- empty setup using defaults
+  -- require("nvim-tree").setup()
 
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -72,7 +97,7 @@ require('packer').startup(function(use)
   use 'github/copilot.vim' -- Copilot
   -- use 'averms/black-nvim' -- Black
   -- use 'ldelossa/nvim-ide' -- IDE
-  use '/Users/bunni/Documents/github/llm.nvim' -- llm.nvim local development directory
+  use '/Users/bunni/Documents/github/prompt.nvim' -- prompt.nvim local development directory
 
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
@@ -174,15 +199,23 @@ vim.keymap.set('n', '<leader>r', ':w<Enter>:!%:p<Enter>') -- run file
 -- vim.keymap.set('n', '<leader>b', '<cmd>call Black()<CR>')
 vim.keymap.set('n', '<leader>.', ':e ~/.config/nvim/init.lua<CR>')
 vim.keymap.set('n', '<leader>m', ':Telescope keymaps<CR>')
-vim.keymap.set({ 'n', 'v' }, '<leader>l', ':call Selection()<CR>') -- llm.nvim
-vim.keymap.set({ 'n', 'v' }, '<leader>w', ':SelectionWindow<CR>') -- llm.nvim
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>b', ':Neotree float buffers<CR>')
+vim.keymap.set('n', '<leader>g', ':Neotree float git_status<CR>')
+vim.keymap.set({ 'n', 'v' }, '<leader>l', ':call Selection()<CR>') -- prompt.nvim
+vim.keymap.set({ 'n', 'v' }, '<leader>p', ':Prompt<CR>') -- prompt.nvim
+vim.keymap.set({ 'n', 'v' }, '<leader>c', ':PromptChat<CR>') -- prompt.nvim
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- nvim-tree
-vim.keymap.set({ 'n', 'v' }, '<leader>t', ':NvimTreeToggle<CR>', { silent = true })
+-- neo-tree
+vim.keymap.set({ 'n', 'v' }, '<leader>t', ':Neotree<CR>', { silent = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
