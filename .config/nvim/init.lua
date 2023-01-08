@@ -97,7 +97,7 @@ require('packer').startup(function(use)
   use 'github/copilot.vim' -- Copilot
   -- use 'averms/black-nvim' -- Black
   -- use 'ldelossa/nvim-ide' -- IDE
-  use '/Users/bunni/Documents/github/prompt.nvim' -- prompt.nvim local development directory
+  use 'bybunni/prompt.nvim' -- prompt.nvim local development directory
 
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
