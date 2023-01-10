@@ -198,14 +198,14 @@ vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { silent = true })
 vim.keymap.set('n', '<leader>r', ':w<Enter>:!%:p<Enter>') -- run file
 -- vim.keymap.set('n', '<leader>b', '<cmd>call Black()<CR>')
 vim.keymap.set('n', '<leader>.', ':e ~/.config/nvim/init.lua<CR>')
+vim.keymap.set('n', '<leader>q', ':q<CR>')
+vim.keymap.set('n', '<leader>b', ':Telescope buffers<CR>')
 vim.keymap.set('n', '<leader>m', ':Telescope keymaps<CR>')
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>b', ':Neotree float buffers<CR>')
-vim.keymap.set('n', '<leader>g', ':Neotree float git_status<CR>')
 vim.keymap.set({ 'n', 'v' }, '<leader>l', ':call Selection()<CR>') -- prompt.nvim
 vim.keymap.set({ 'n', 'v' }, '<leader>p', ':Prompt<CR>') -- prompt.nvim
 vim.keymap.set({ 'n', 'v' }, '<leader>c', ':PromptChat<CR>') -- prompt.nvim
@@ -215,7 +215,7 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- neo-tree
-vim.keymap.set({ 'n', 'v' }, '<leader>t', ':Neotree<CR>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>t', ':Neotree toggle<CR>', { silent = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -298,7 +298,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim'},
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'latex'},
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -361,8 +361,8 @@ require('nvim-treesitter.configs').setup {
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 -- diagnostic hover, activate on line, see `:help vim.diagnostic.show_line_diagnostics()`
-vim.keymap.set('n', '<leader>dh', vim.diagnostic.open_float)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist)
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
