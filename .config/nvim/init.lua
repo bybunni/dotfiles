@@ -44,6 +44,7 @@ require('packer').startup(function(use)
     }
   }
   require("neo-tree").setup({
+    close_if_last_window = true,
     buffers = {
       follow_current_file = true, -- This will find and focus the file in the active buffer every
       group_empty_dirs = true, -- when true, empty folders will be grouped together
@@ -100,6 +101,7 @@ require('packer').startup(function(use)
   use '/Users/bunni/Documents/github/prompt.nvim' -- prompt.nvim local development directory
 
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  use { "catppuccin/nvim", as = "catppuccin" }
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
@@ -179,7 +181,8 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme onedark]]
+-- vim.cmd [[colorscheme onedark]]
+vim.cmd.colorscheme "catppuccin"
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -202,9 +205,10 @@ vim.keymap.set('n', '<leader>q', ':q<CR>')
 vim.keymap.set('n', '<leader>b', ':Telescope buffers<CR>')
 vim.keymap.set('n', '<leader>m', ':Telescope keymaps<CR>')
 local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>gf', ":lua require('telescope.builtin').live_grep( { grep_open_files = false, prompt_title = 'Grep Files' }, {} )<CR>")
+vim.keymap.set('n', '<leader>gb', ":lua require('telescope.builtin').live_grep( { grep_open_files = true, prompt_title = 'Grep Open Buffers' }, {} )<CR>")
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>b', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set({ 'n', 'v' }, '<leader>l', ':call Selection()<CR>') -- prompt.nvim
 vim.keymap.set({ 'n', 'v' }, '<leader>p', ':Prompt<CR>') -- prompt.nvim
@@ -215,7 +219,7 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- neo-tree
-vim.keymap.set({ 'n', 'v' }, '<leader>t', ':Neotree toggle<CR>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>t', ':Neotree filesystem left toggle reveal<CR>', { silent = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -232,8 +236,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- See `:help lualine.txt`
 require('lualine').setup {
   options = {
-    icons_enabled = false,
-    theme = 'onedark',
+    icons_enabled = true,
+    theme = 'dracula',
     component_separators = '|',
     section_separators = '',
   },
