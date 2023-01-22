@@ -209,6 +209,7 @@ vim.keymap.set('n', '<leader>gf', ":lua require('telescope.builtin').live_grep( 
 vim.keymap.set('n', '<leader>gb', ":lua require('telescope.builtin').live_grep( { grep_open_files = true, prompt_title = 'Grep Open Buffers' }, {} )<CR>")
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>b', builtin.buffers, {})
+vim.keymap.set('n', '<leader>cc', ':copen<CR>')
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set({ 'n', 'v' }, '<leader>l', ':call Selection()<CR>') -- prompt.nvim
 vim.keymap.set({ 'n', 'v' }, '<leader>p', ':Prompt<CR>') -- prompt.nvim
