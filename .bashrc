@@ -2,6 +2,23 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# vim
+set -o vi
+
+# Reduce mode switch delay
+bind 'set keyseq-timeout 50'
+
+# Show which mode you're in via cursor shape
+bind 'set show-mode-in-prompt on'
+bind 'set vi-cmd-mode-string "\1\e[1 q\2"'
+bind 'set vi-ins-mode-string "\1\e[5 q\2"'
+
+source /usr/share/doc/fzf/examples/key-bindings.bash
+source /usr/share/bash-completion/completions/fzf
+
+export EDITOR=nvim
+export VISUAL=nvim
+
 # git-sh-prompt
 source /usr/lib/git-core/git-sh-prompt 2>/dev/null
 #export GIT_PS1_SHOWDIRTYSTATE=1      # * for unstaged, + for staged
