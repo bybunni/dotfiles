@@ -4,6 +4,9 @@ vim.g.mapleader = ","
 -- Mouse off
 vim.opt.mouse = ""
 
+-- Colors
+vim.opt.termguicolors = true
+
 -- Enable language servers (nvim 0.11+)
 vim.lsp.enable('pyright')  -- Python
 
@@ -53,6 +56,15 @@ require("lazy").setup({
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {},
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("catppuccin")
+    end,
   },
 })
 
