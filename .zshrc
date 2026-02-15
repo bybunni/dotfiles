@@ -145,14 +145,27 @@ alias findlarge='find . -type f -size +100M -exec ls -lh {} \;'
 # Key Bindings
 # ----------------------------------------------------------------------------
 # Use emacs key bindings (can change to 'bindkey -v' for vi mode)
-bindkey -e
+bindkey -v
+
+# Reduce mode switch delay (default 0.4s feels sluggish)
+export KEYTIMEOUT=1
+
+# Show which mode you're in via cursor shape
+function zle-keymap-select {
+  if [[ $KEYMAP == vicmd ]]; then
+    echo -ne '\e[1 q'  # block cursor for normal mode
+  else
+    echo -ne '\e[5 q'  # beam cursor for insert mode
+  fi
+}
+zle -N zle-keymap-select
 
 # ----------------------------------------------------------------------------
 # Environment Variables
 # ----------------------------------------------------------------------------
 # Set default editor
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 
 # Better less defaults
 export LESS='-R -i -M -w -X'
@@ -196,3 +209,4 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # (Homebrew is initialized in .zprofile)
     :
 fi
+export PATH="$HOME/.local/bin:$PATH"
